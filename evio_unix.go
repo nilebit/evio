@@ -71,9 +71,15 @@ func (l *loop) SendData (fd int, out []byte) {
 	if fd == SendAllClient {
 		for _, v := range l.fdconns {
 			v.out = append([]byte{}, out...)
+			if len(v.out) != 0 || v.action != None {
+				l.poll.ModReadWrite(v.fd)
+			}
 		}
 	} else {
 		l.fdconns[fd].out = append([]byte{}, out...)
+		if len(l.fdconns[fd].out) != 0 || l.fdconns[fd].action != None {
+			l.poll.ModReadWrite(fd)
+		}
 	}
 }
 

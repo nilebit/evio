@@ -32,7 +32,7 @@ The goal of this project is to create a server framework for Go that performs on
 To start using evio, install Go and run `go get`:
 
 ```sh
-$ go get -u github.com/tidwall/evio
+$ go get -u github.com/nilebit/evio
 ```
 
 This will retrieve the library.
@@ -46,7 +46,7 @@ Example echo server that binds to port 5000:
 ```go
 package main
 
-import "github.com/tidwall/evio"
+import "github.com/nilebit/evio"
 
 func main() {
 	var events evio.Events
@@ -156,11 +156,6 @@ These benchmarks were run on an ec2 c4.xlarge instance in single-threaded mode (
 Check out [benchmarks](benchmarks) for more info.
 
 <img src="benchmarks/out/echo.png" width="336" height="144" border="0" alt="echo benchmark"><img src="benchmarks/out/http.png" width="336" height="144" border="0" alt="http benchmark"><img src="benchmarks/out/redis_pipeline_1.png" width="336" height="144" border="0" alt="redis 1 benchmark"><img src="benchmarks/out/redis_pipeline_8.png" width="336" height="144" border="0" alt="redis 8 benchmark">
-
-
-## Contact
-
-Josh Baker [@tidwall](http://twitter.com/tidwall)
 
 ## License
 

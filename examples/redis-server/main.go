@@ -11,7 +11,7 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/tidwall/evio"
+	"github.com/nilebit/evio"
 	"github.com/tidwall/redcon"
 )
 

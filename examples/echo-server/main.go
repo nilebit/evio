@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"log"
 	"strings"
+	"time"
 
 	"github.com/nilebit/evio"
 )
@@ -46,6 +47,14 @@ func main() {
 			log.Printf("%s", strings.TrimSpace(string(in)))
 		}
 		out = in
+		return
+	}
+
+	events.Tick = func(tick evio.Tick) (delay time.Duration, action evio.Action){
+		out := []byte("sweetness\r\n")
+		tick.SendData(evio.SendAllClient, out)
+		delay = 1 * time.Second
+		action = evio.None
 		return
 	}
 	scheme := "tcp"

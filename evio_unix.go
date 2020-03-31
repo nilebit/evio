@@ -67,6 +67,16 @@ type loop struct {
 	count   int32          // connection count
 }
 
+func (l *loop) SendData (fd int, out []byte) {
+	if fd == SendAllClient {
+		for _, v := range l.fdconns {
+			v.out = append([]byte{}, out...)
+		}
+	} else {
+		l.fdconns[fd].out = append([]byte{}, out...)
+	}
+}
+
 // waitForShutdown waits for a signal to shutdown
 func (s *server) waitForShutdown() {
 	s.cond.L.Lock()
@@ -195,7 +205,7 @@ func loopNote(s *server, l *loop, note interface{}) error {
 	var err error
 	switch v := note.(type) {
 	case time.Duration:
-		delay, action := s.events.Tick()
+		delay, action := s.events.Tick(l)
 		switch action {
 		case None:
 		case Shutdown:

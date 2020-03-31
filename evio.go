@@ -78,6 +78,11 @@ const (
 	LeastConnections
 )
 
+const SendAllClient = -1
+type Tick interface {
+	SendData (fd int, out []byte)
+}
+
 // Events represents the server events for the Serve call.
 // Each event has an Action return value that is used manage the state
 // of the connection and server.
@@ -121,7 +126,7 @@ type Events struct {
 	Data func(c Conn, in []byte) (out []byte, action Action)
 	// Tick fires immediately after the server starts and will fire again
 	// following the duration specified by the delay return value.
-	Tick func() (delay time.Duration, action Action)
+	Tick func(t Tick) (delay time.Duration, action Action)
 }
 
 // Serve starts handling events for the specified addresses.

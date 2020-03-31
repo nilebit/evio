@@ -48,6 +48,10 @@ type stdloop struct {
 	conns map[*stdconn]bool // track all the conns bound to this loop
 }
 
+func (l *stdloop) SendData (fd int, out []byte) {
+
+}
+
 type stdconn struct {
 	addrIndex  int
 	localAddr  net.Addr
@@ -256,7 +260,7 @@ func stdloopRun(s *stdserver, l *stdloop) {
 	for {
 		select {
 		case <-tick:
-			delay, action := s.events.Tick()
+			delay, action := s.events.Tick(l)
 			switch action {
 			case Shutdown:
 				err = errClosing

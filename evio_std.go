@@ -41,6 +41,9 @@ func (c *stdudpconn) AddrIndex() int             { return c.addrIndex }
 func (c *stdudpconn) LocalAddr() net.Addr        { return c.localAddr }
 func (c *stdudpconn) RemoteAddr() net.Addr       { return c.remoteAddr }
 func (c *stdudpconn) Wake()                      {}
+func (c *stdudpconn) Write(b []byte) (n int, err error) {
+	return 0, nil
+}
 
 type stdloop struct {
 	idx   int               // loop index
@@ -70,6 +73,9 @@ func (c *stdconn) AddrIndex() int             { return c.addrIndex }
 func (c *stdconn) LocalAddr() net.Addr        { return c.localAddr }
 func (c *stdconn) RemoteAddr() net.Addr       { return c.remoteAddr }
 func (c *stdconn) Wake()                      { c.loop.ch <- wakeReq{c} }
+func (c *stdconn) Write(b []byte) (n int, err error) {
+	return c.conn.Write(b)
+}
 
 type stdin struct {
 	c  *stdconn

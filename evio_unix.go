@@ -7,6 +7,7 @@
 package evio
 
 import (
+	"errors"
 	"io"
 	"net"
 	"os"
@@ -44,6 +45,19 @@ func (c *conn) Wake() {
 	if c.loop != nil {
 		c.loop.poll.Trigger(c)
 	}
+}
+
+func (c *conn) Write(b []byte) (n int, err error) {
+	bytesNum := len(b)
+	if bytesNum > 0 {
+		err := syscall.Sendto(c.fd, b, 0, c.sa)
+		if err != nil {
+			return bytesNum, err
+		}
+	} else {
+		return 0, errors.New("empty bytes")
+	}
+	return bytesNum, nil
 }
 
 type server struct {

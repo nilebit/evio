@@ -32,7 +32,7 @@ The goal of this project is to create a server framework for Go that performs on
 To start using evio, install Go and run `go get`:
 
 ```sh
-$ go get -u github.com/tidwall/evio
+$ go get -u github.com/nilebit/evio
 ```
 
 This will retrieve the library.
@@ -46,7 +46,7 @@ Example echo server that binds to port 5000:
 ```go
 package main
 
-import "github.com/tidwall/evio"
+import "github.com/nilebit/evio"
 
 func main() {
 	var events evio.Events
@@ -159,8 +159,6 @@ Check out [benchmarks](benchmarks) for more info.
 
 
 ## Contact
-
-Josh Baker [@tidwall](http://twitter.com/tidwall)
 
 ## License
 

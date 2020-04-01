@@ -50,7 +50,7 @@ func main() {
 		return
 	}
 
-	events.Tick = func(tick evio.Tick) (delay time.Duration, action evio.Action){
+	events.Tick = func(tick evio.Tick) (delay time.Duration, action evio.Action) {
 		out := []byte("sweetness\r\n")
 		tick.SendData(evio.SendAllClient, out)
 		delay = 1 * time.Second

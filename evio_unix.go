@@ -76,6 +76,9 @@ func (l *loop) SendData(fd int, out []byte) {
 			}
 		}
 	} else {
+		if l.fdconns[fd] == nil {
+			return
+		}
 		l.fdconns[fd].out = append(l.fdconns[fd].out, out...)
 		if len(l.fdconns[fd].out) != 0 || l.fdconns[fd].action != None {
 			l.poll.ModReadWrite(fd)
